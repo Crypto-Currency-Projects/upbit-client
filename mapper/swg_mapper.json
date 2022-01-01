@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "description": "## REST API for Upbit Exchange\n- Base URL: [https://api.upbit.com]\n- Official Upbit API Documents: [https://docs.upbit.com]\n- Official Support email: [open-api@upbit.com]\n",
-    "version": "1.0.0",
+    "version": "1.2.2",
     "title": "Upbit Open API",
     "contact": {
       "url": "https://github.com/uJhin",
@@ -71,32 +71,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -131,32 +107,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -191,32 +143,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -263,32 +191,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -328,32 +232,8 @@
               "$ref": "#/definitions/OrderChance"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -400,32 +280,8 @@
               "$ref": "#/definitions/OrderInfo"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -470,32 +326,8 @@
               "$ref": "#/definitions/Order"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -568,13 +400,6 @@
             "collectionFormat": "multi"
           },
           {
-            "name": "kind",
-            "in": "query",
-            "description": "주문 유형\n- normal : 일반 주문\n- watch : 예약 주문\n",
-            "required": false,
-            "type": "string"
-          },
-          {
             "name": "page",
             "in": "query",
             "description": "페이지 수, default: 1\n",
@@ -606,32 +431,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -677,15 +478,17 @@
             "name": "volume",
             "in": "formData",
             "description": "주문량 (지정가, 시장가 매도 시 필수)\n",
-            "required": true,
-            "type": "string"
+            "required": false,
+            "type": "string",
+            "default": "null"
           },
           {
             "name": "price",
             "in": "formData",
             "description": "주문 가격. (지정가, 시장가 매수 시 필수)\n\nex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다.\nex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다.\n(수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)\n",
-            "required": true,
-            "type": "string"
+            "required": false,
+            "type": "string",
+            "default": "null"
           },
           {
             "name": "ord_type",
@@ -715,32 +518,8 @@
               "$ref": "#/definitions/NewOrder"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -833,32 +612,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -912,32 +667,8 @@
               "$ref": "#/definitions/Withdraw"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -977,32 +708,8 @@
               "$ref": "#/definitions/WithdrawChance"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1073,32 +780,8 @@
               "$ref": "#/definitions/WithdrawCoin"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1141,32 +824,8 @@
               "$ref": "#/definitions/Withdraw"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1259,32 +918,8 @@
               }
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1338,32 +973,8 @@
               "$ref": "#/definitions/Deposit"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1412,32 +1023,8 @@
               "$ref": "#/definitions/DepositTransferResponse"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1467,32 +1054,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1532,32 +1095,8 @@
               "$ref": "#/definitions/DepositCompleteResponse"
             }
           },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1596,32 +1135,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1681,32 +1196,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1767,32 +1258,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1845,32 +1312,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -1923,32 +1366,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -2016,32 +1435,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -2079,32 +1474,8 @@
             "description": "OK",
             "schema": {}
           },
-          "400": {
-            "description": "Status: Bad Request\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "401": {
-            "description": "Status: Unauthorized\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "403": {
-            "description": "Status: Forbidden\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "404": {
-            "description": "Status: Not Found\n",
-            "schema": {
-              "$ref": "#/definitions/Error"
-            }
-          },
-          "500": {
-            "description": "Status: Internal Server Error\n",
+          "default": {
+            "description": "HTTP Error",
             "schema": {
               "$ref": "#/definitions/Error"
             }
@@ -2131,6 +1502,16 @@
       "properties": {
         "error": {
           "$ref": "#/definitions/ErrorInfo"
+        },
+        "message": {
+          "type": "string",
+          "example": "error message",
+          "description": "Error 메시지"
+        },
+        "name": {
+          "type": "string",
+          "example": "error name",
+          "description": "Error 명칭"
         }
       }
     },

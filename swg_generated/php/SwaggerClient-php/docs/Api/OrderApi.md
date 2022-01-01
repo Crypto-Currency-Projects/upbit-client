@@ -182,7 +182,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **orderInfoAll**
-> \Swagger\Client\Model\Order[] orderInfoAll($market, $state, $states, $uuids, $identifiers, $kind, $page, $limit, $order_by)
+> \Swagger\Client\Model\Order[] orderInfoAll($market, $state, $states, $uuids, $identifiers, $page, $limit, $order_by)
 
 주문 리스트 조회
 
@@ -209,13 +209,12 @@ $state = "state_example"; // string | 주문 상태   - wait : 체결 대기 (de
 $states = array("states_example"); // string[] | 주문 상태의 목록
 $uuids = array("uuids_example"); // string[] | 주문 UUID의 목록
 $identifiers = array("identifiers_example"); // string[] | 주문 identifier의 목록
-$kind = "kind_example"; // string | 주문 유형 - normal : 일반 주문 - watch : 예약 주문
 $page = 8.14; // float | 페이지 수, default: 1
 $limit = 8.14; // float | 요청 개수, default: 100
 $order_by = "order_by_example"; // string | 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)
 
 try {
-    $result = $apiInstance->orderInfoAll($market, $state, $states, $uuids, $identifiers, $kind, $page, $limit, $order_by);
+    $result = $apiInstance->orderInfoAll($market, $state, $states, $uuids, $identifiers, $page, $limit, $order_by);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrderApi->orderInfoAll: ', $e->getMessage(), PHP_EOL;
@@ -232,7 +231,6 @@ Name | Type | Description  | Notes
  **states** | [**string[]**](../Model/string.md)| 주문 상태의 목록 | [optional]
  **uuids** | [**string[]**](../Model/string.md)| 주문 UUID의 목록 | [optional]
  **identifiers** | [**string[]**](../Model/string.md)| 주문 identifier의 목록 | [optional]
- **kind** | **string**| 주문 유형 - normal : 일반 주문 - watch : 예약 주문 | [optional]
  **page** | **float**| 페이지 수, default: 1 | [optional]
  **limit** | **float**| 요청 개수, default: 100 | [optional]
  **order_by** | **string**| 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default) | [optional]
@@ -253,7 +251,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../../README.md#documentation-for-api-endpoints) [[Back to Model list]](../../README.md#documentation-for-models) [[Back to README]](../../README.md)
 
 # **orderNew**
-> \Swagger\Client\Model\NewOrder orderNew($market, $side, $volume, $price, $ord_type, $identifier)
+> \Swagger\Client\Model\NewOrder orderNew($market, $side, $ord_type, $volume, $price, $identifier)
 
 주문하기
 
@@ -277,13 +275,13 @@ $apiInstance = new Swagger\Client\Api\OrderApi(
 );
 $market = "market_example"; // string | 마켓 ID (필수)
 $side = "side_example"; // string | 주문 종류 (필수) - bid : 매수 - ask : 매도
-$volume = "volume_example"; // string | 주문량 (지정가, 시장가 매도 시 필수)
-$price = "price_example"; // string | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)
 $ord_type = "ord_type_example"; // string | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도)
+$volume = "null"; // string | 주문량 (지정가, 시장가 매도 시 필수)
+$price = "null"; // string | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)
 $identifier = "identifier_example"; // string | 조회용 사용자 지정값 (선택)
 
 try {
-    $result = $apiInstance->orderNew($market, $side, $volume, $price, $ord_type, $identifier);
+    $result = $apiInstance->orderNew($market, $side, $ord_type, $volume, $price, $identifier);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OrderApi->orderNew: ', $e->getMessage(), PHP_EOL;
@@ -297,9 +295,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **market** | **string**| 마켓 ID (필수) |
  **side** | **string**| 주문 종류 (필수) - bid : 매수 - ask : 매도 |
- **volume** | **string**| 주문량 (지정가, 시장가 매도 시 필수) |
- **price** | **string**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) |
  **ord_type** | **string**| 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) |
+ **volume** | **string**| 주문량 (지정가, 시장가 매도 시 필수) | [optional] [default to null]
+ **price** | **string**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) | [optional] [default to null]
  **identifier** | **string**| 조회용 사용자 지정값 (선택) | [optional]
 
 ### Return type

@@ -1,37 +1,50 @@
+
 from setuptools import setup
 from setuptools import find_packages
 
-long_description = '''
-Upbit OPEN API Client\n
-@Author: ujhin\n
-@GitHub: https://github.com/uJhin/upbit-client\n
-@Official Documents: https://ujhin.github.io/upbit-client-docs\n 
-'''
+from upbit import pkginfo
+
+
+with open('README.rst') as readme:
+    long_description = readme.read()
+
 
 setup(
-    name='upbit_client',
-    version='1.1.6.12',
-    packages=find_packages(),
-    install_requires=[
+    name     = pkginfo.PACKAGE_NAME,
+    version  = pkginfo.CURRENT_VERSION,
+    packages = find_packages(),
+    install_requires = [
         'bravado>=11.0.2',
-        'PyJWT>=2.0'
+        'PyJWT>=2.0',
+        'websockets>=8.1'
     ],
-    extras_require={
-        'fido': ['fido>=4.2.1']
+    extras_require  = {
+        'fido': [
+            'fido>=4.2.1'
+        ]
     },
-    python_requires='>=3.8',
-    keywords=[
+    python_requires = '>=3.8',
+    classifiers     = [
+        'Programming Language :: Python :: 3.8',
+        'Programming Language :: Python :: 3.9'
+    ],
+    keywords        = [
         'Upbit',
         'upbit',
         'upbit-client',
         'Upbit-Client',
         'Upbit_client',
-        'upbit'
+        'Upbit-api-connector',
+        'upbit-api-connector',
+        'Upbit_api_connector',
+        'upbit_api_connector'
     ],
-    url='https://github.com/uJhin/upbit-client',
-    license='MIT License',
-    author='ujhin',
-    author_email='ujhin942@gmail.com',
-    description='Upbit OPEN API Client',
-    long_description=long_description
+    url                           = 'https://github.com/uJhin/upbit-client',
+    download_url                  = 'https://github.com/uJhin/upbit-client/releases',
+    license                       = 'MIT License',
+    author                        = 'ujhin',
+    author_email                  = 'ujhin942@gmail.com',
+    description                   = 'Upbit OPEN API Client',
+    long_description_content_type = 'text/x-rst',
+    long_description              = long_description
 )

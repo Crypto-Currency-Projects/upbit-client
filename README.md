@@ -39,23 +39,25 @@
   <p>Upbit(업비트) Cryptocurrency Exchange API Client</p>
 </div>
 
+### Description
+Upbit(업비트) Cryptocurrency Exchange Open API Client of Multi-Programming Language Support
+
+
 ### Swagger Generated Support Languages
 - [Python](https://github.com/uJhin/upbit-client/tree/main/swg_generated/python/)
+- [C++](https://github.com/uJhin/upbit-client/tree/main/swg_generated/cpp)
 - [CSharp](https://github.com/uJhin/upbit-client/tree/main/swg_generated/csharp/)
+- [Objective-C](https://github.com/uJhin/upbit-client/tree/main/swg_generated/objective-c)
 - [Java](https://github.com/uJhin/upbit-client/tree/main/swg_generated/java/)
-- [Go](https://github.com/uJhin/upbit-client/tree/main/swg_generated/go/)
 - [JavaScript](https://github.com/uJhin/upbit-client/tree/main/swg_generated/)
-- [Kotlin](https://github.com/uJhin/upbit-client/tree/main/swg_generated/)
 - [PHP](https://github.com/uJhin/upbit-client/tree/main/swg_generated/php/SwaggerClient-php/)
-
-### Swagger Generated API Documents
-- [Python](https://github.com/uJhin/upbit-client/tree/main/swg_generated/python/docs)
-- [CSharp](https://github.com/uJhin/upbit-client/tree/main/swg_generated/csharp/docs)
-- [Java](https://github.com/uJhin/upbit-client/tree/main/swg_generated/java/docs)
-- [Go](https://github.com/uJhin/upbit-client/tree/main/swg_generated/go/docs)
-- [JavaScript](https://github.com/uJhin/upbit-client/tree/main/swg_generated/javascript)
-- [Kotlin](https://github.com/uJhin/upbit-client/tree/main/swg_generated/kotlin)
-- [PHP](https://github.com/uJhin/upbit-client/tree/main/swg_generated/php/SwaggerClient-php/docs)
+- [Android](https://github.com/uJhin/upbit-client/tree/main/swg_generated/android)
+- [Kotlin](https://github.com/uJhin/upbit-client/tree/main/swg_generated/)
+- [Go](https://github.com/uJhin/upbit-client/tree/main/swg_generated/go/)
+- [Lua](https://github.com/uJhin/upbit-client/tree/main/swg_generated/lua)
+- [R](https://github.com/uJhin/upbit-client/tree/main/swg_generated/r)
+- [Rust](https://github.com/uJhin/upbit-client/tree/main/swg_generated/rust)
+- [Scala](https://github.com/uJhin/upbit-client/tree/main/swg_generated/scala)
 
 ### Install
 - `pip` command
@@ -67,7 +69,9 @@ pip install upbit-client
 git clone https://github.com/uJhin/upbit-client.git
 ```
 
-### Simple Examples
+
+### Quick Start
+#### REST Client
 - Check Your API Keys
 ```python
 # /v1/api_keys
@@ -78,7 +82,8 @@ access_key = "Your Access Key"
 secret_key = "Your Secret Key"
 
 client = Upbit(access_key, secret_key)
-print(client.APIKey.APIKey_info().result())
+api_keys = client.APIKey.APIKey_info()
+print(api_keys['result'])
 ```
 
 - Buy Currency
@@ -97,8 +102,8 @@ order = client.Order.Order_new(
     volume='0.1',
     price='3000000',
     ord_type='limit'
-).result()
-print(order)
+)
+print(order['result'])
 ```
 
 - Sell Currency
@@ -118,8 +123,45 @@ order = client.Order.Order_new(
     volume='0.1',
     price='3000000',
     ord_type='limit'
-).result()
-print(order)
+)
+print(order['result'])
+```
+
+#### WebSocket Client
+- Get Real-Time Ticker
+```python
+# Using WebSocket
+
+import json
+import asyncio
+
+from upbit.websocket import UpbitWebSocket
+
+
+# Definition async function
+async def ticker(sock, payload):
+    async with sock as conn:
+        while True:
+            await conn.send(payload)
+            recv = await conn.recv()
+            data = recv.decode('utf8')
+            result = json.loads(data)
+            print(result)
+
+
+sock = UpbitWebSocket()
+
+currencies = ['KRW-BTC', 'KRW-ETH']
+type_field = sock.generate_type_field(
+    type='ticker',
+    codes=currencies,
+)
+payload = sock.generate_payload(
+    type_fields=[type_field]
+)
+
+event_loop = asyncio.get_event_loop()
+event_loop.run_until_complete( ticker(sock, payload) )
 ```
 
 ### Donation

@@ -183,7 +183,7 @@ Name | Type | Description  | Notes
 
 <a name="orderInfoAll"></a>
 # **orderInfoAll**
-> List&lt;Order&gt; orderInfoAll(market, state, states, uuids, identifiers, kind, page, limit, orderBy)
+> List&lt;Order&gt; orderInfoAll(market, state, states, uuids, identifiers, page, limit, orderBy)
 
 주문 리스트 조회
 
@@ -212,12 +212,11 @@ String state = "state_example"; // String | 주문 상태   - wait : 체결 대�
 List<String> states = Arrays.asList("states_example"); // List<String> | 주문 상태의 목록 
 List<String> uuids = Arrays.asList("uuids_example"); // List<String> | 주문 UUID의 목록 
 List<String> identifiers = Arrays.asList("identifiers_example"); // List<String> | 주문 identifier의 목록 
-String kind = "kind_example"; // String | 주문 유형 - normal : 일반 주문 - watch : 예약 주문 
 BigDecimal page = new BigDecimal(); // BigDecimal | 페이지 수, default: 1 
 BigDecimal limit = new BigDecimal(); // BigDecimal | 요청 개수, default: 100 
 String orderBy = "orderBy_example"; // String | 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default) 
 try {
-    List<Order> result = apiInstance.orderInfoAll(market, state, states, uuids, identifiers, kind, page, limit, orderBy);
+    List<Order> result = apiInstance.orderInfoAll(market, state, states, uuids, identifiers, page, limit, orderBy);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling OrderApi#orderInfoAll");
@@ -234,7 +233,6 @@ Name | Type | Description  | Notes
  **states** | [**List&lt;String&gt;**](String.md)| 주문 상태의 목록  | [optional]
  **uuids** | [**List&lt;String&gt;**](String.md)| 주문 UUID의 목록  | [optional]
  **identifiers** | [**List&lt;String&gt;**](String.md)| 주문 identifier의 목록  | [optional]
- **kind** | **String**| 주문 유형 - normal : 일반 주문 - watch : 예약 주문  | [optional]
  **page** | **BigDecimal**| 페이지 수, default: 1  | [optional]
  **limit** | **BigDecimal**| 요청 개수, default: 100  | [optional]
  **orderBy** | **String**| 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)  | [optional]
@@ -254,7 +252,7 @@ Name | Type | Description  | Notes
 
 <a name="orderNew"></a>
 # **orderNew**
-> NewOrder orderNew(market, side, volume, price, ordType, identifier)
+> NewOrder orderNew(market, side, ordType, volume, price, identifier)
 
 주문하기
 
@@ -280,12 +278,12 @@ Bearer.setApiKey("YOUR API KEY");
 OrderApi apiInstance = new OrderApi();
 String market = "market_example"; // String | 마켓 ID (필수) 
 String side = "side_example"; // String | 주문 종류 (필수) - bid : 매수 - ask : 매도 
-String volume = "volume_example"; // String | 주문량 (지정가, 시장가 매도 시 필수) 
-String price = "price_example"; // String | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
 String ordType = "ordType_example"; // String | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) 
+String volume = "null"; // String | 주문량 (지정가, 시장가 매도 시 필수) 
+String price = "null"; // String | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
 String identifier = "identifier_example"; // String | 조회용 사용자 지정값 (선택) 
 try {
-    NewOrder result = apiInstance.orderNew(market, side, volume, price, ordType, identifier);
+    NewOrder result = apiInstance.orderNew(market, side, ordType, volume, price, identifier);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling OrderApi#orderNew");
@@ -299,9 +297,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **market** | **String**| 마켓 ID (필수)  |
  **side** | **String**| 주문 종류 (필수) - bid : 매수 - ask : 매도  |
- **volume** | **String**| 주문량 (지정가, 시장가 매도 시 필수)  |
- **price** | **String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  |
  **ordType** | **String**| 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도)  |
+ **volume** | **String**| 주문량 (지정가, 시장가 매도 시 필수)  | [optional] [default to null]
+ **price** | **String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | [optional] [default to null]
  **identifier** | **String**| 조회용 사용자 지정값 (선택)  | [optional]
 
 ### Return type

@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **order_info_all**
-> list[Order] order_info_all(market=market, state=state, states=states, uuids=uuids, identifiers=identifiers, kind=kind, page=page, limit=limit, order_by=order_by)
+> list[Order] order_info_all(market=market, state=state, states=states, uuids=uuids, identifiers=identifiers, page=page, limit=limit, order_by=order_by)
 
 주문 리스트 조회
 
@@ -206,14 +206,13 @@ state = 'state_example' # str | 주문 상태   - wait : 체결 대기 (default)
 states = ['states_example'] # list[str] | 주문 상태의 목록  (optional)
 uuids = ['uuids_example'] # list[str] | 주문 UUID의 목록  (optional)
 identifiers = ['identifiers_example'] # list[str] | 주문 identifier의 목록  (optional)
-kind = 'kind_example' # str | 주문 유형 - normal : 일반 주문 - watch : 예약 주문  (optional)
 page = 8.14 # float | 페이지 수, default: 1  (optional)
 limit = 8.14 # float | 요청 개수, default: 100  (optional)
 order_by = 'order_by_example' # str | 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)  (optional)
 
 try:
     # 주문 리스트 조회
-    api_response = api_instance.order_info_all(market=market, state=state, states=states, uuids=uuids, identifiers=identifiers, kind=kind, page=page, limit=limit, order_by=order_by)
+    api_response = api_instance.order_info_all(market=market, state=state, states=states, uuids=uuids, identifiers=identifiers, page=page, limit=limit, order_by=order_by)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling OrderApi->order_info_all: %s\n" % e)
@@ -228,7 +227,6 @@ Name | Type | Description  | Notes
  **states** | [**list[str]**](str.md)| 주문 상태의 목록  | [optional] 
  **uuids** | [**list[str]**](str.md)| 주문 UUID의 목록  | [optional] 
  **identifiers** | [**list[str]**](str.md)| 주문 identifier의 목록  | [optional] 
- **kind** | **str**| 주문 유형 - normal : 일반 주문 - watch : 예약 주문  | [optional] 
  **page** | **float**| 페이지 수, default: 1  | [optional] 
  **limit** | **float**| 요청 개수, default: 100  | [optional] 
  **order_by** | **str**| 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)  | [optional] 
@@ -249,7 +247,7 @@ Name | Type | Description  | Notes
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 # **order_new**
-> NewOrder order_new(market, side, volume, price, ord_type, identifier=identifier)
+> NewOrder order_new(market, side, ord_type, volume=volume, price=price, identifier=identifier)
 
 주문하기
 
@@ -273,14 +271,14 @@ configuration.api_key['Authorization'] = 'YOUR_API_KEY'
 api_instance = swagger_client.OrderApi(swagger_client.ApiClient(configuration))
 market = 'market_example' # str | 마켓 ID (필수) 
 side = 'side_example' # str | 주문 종류 (필수) - bid : 매수 - ask : 매도 
-volume = 'volume_example' # str | 주문량 (지정가, 시장가 매도 시 필수) 
-price = 'price_example' # str | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
 ord_type = 'ord_type_example' # str | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) 
+volume = 'null' # str | 주문량 (지정가, 시장가 매도 시 필수)  (optional) (default to null)
+price = 'null' # str | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  (optional) (default to null)
 identifier = 'identifier_example' # str | 조회용 사용자 지정값 (선택)  (optional)
 
 try:
     # 주문하기
-    api_response = api_instance.order_new(market, side, volume, price, ord_type, identifier=identifier)
+    api_response = api_instance.order_new(market, side, ord_type, volume=volume, price=price, identifier=identifier)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling OrderApi->order_new: %s\n" % e)
@@ -292,9 +290,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **market** | **str**| 마켓 ID (필수)  | 
  **side** | **str**| 주문 종류 (필수) - bid : 매수 - ask : 매도  | 
- **volume** | **str**| 주문량 (지정가, 시장가 매도 시 필수)  | 
- **price** | **str**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | 
  **ord_type** | **str**| 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도)  | 
+ **volume** | **str**| 주문량 (지정가, 시장가 매도 시 필수)  | [optional] [default to null]
+ **price** | **str**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | [optional] [default to null]
  **identifier** | **str**| 조회용 사용자 지정값 (선택)  | [optional] 
 
 ### Return type

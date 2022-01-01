@@ -204,7 +204,6 @@ var opts = {
   'states': ["states_example"], // [String] | 주문 상태의 목록 
   'uuids': ["uuids_example"], // [String] | 주문 UUID의 목록 
   'identifiers': ["identifiers_example"], // [String] | 주문 identifier의 목록 
-  'kind': "kind_example", // String | 주문 유형 - normal : 일반 주문 - watch : 예약 주문 
   'page': 8.14, // Number | 페이지 수, default: 1 
   'limit': 8.14, // Number | 요청 개수, default: 100 
   'orderBy': "orderBy_example" // String | 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default) 
@@ -229,7 +228,6 @@ Name | Type | Description  | Notes
  **states** | [**[String]**](String.md)| 주문 상태의 목록  | [optional] 
  **uuids** | [**[String]**](String.md)| 주문 UUID의 목록  | [optional] 
  **identifiers** | [**[String]**](String.md)| 주문 identifier의 목록  | [optional] 
- **kind** | **String**| 주문 유형 - normal : 일반 주문 - watch : 예약 주문  | [optional] 
  **page** | **Number**| 페이지 수, default: 1  | [optional] 
  **limit** | **Number**| 요청 개수, default: 100  | [optional] 
  **orderBy** | **String**| 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)  | [optional] 
@@ -249,7 +247,7 @@ Name | Type | Description  | Notes
 
 <a name="orderNew"></a>
 # **orderNew**
-> NewOrder orderNew(market, side, volume, price, ordType, opts)
+> NewOrder orderNew(market, side, ordType, opts)
 
 주문하기
 
@@ -272,13 +270,11 @@ var market = "market_example"; // String | 마켓 ID (필수)
 
 var side = "side_example"; // String | 주문 종류 (필수) - bid : 매수 - ask : 매도 
 
-var volume = "volume_example"; // String | 주문량 (지정가, 시장가 매도 시 필수) 
-
-var price = "price_example"; // String | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
-
 var ordType = "ordType_example"; // String | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) 
 
 var opts = { 
+  'volume': "null", // String | 주문량 (지정가, 시장가 매도 시 필수) 
+  'price': "null", // String | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
   'identifier': "identifier_example" // String | 조회용 사용자 지정값 (선택) 
 };
 
@@ -289,7 +285,7 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-apiInstance.orderNew(market, side, volume, price, ordType, opts, callback);
+apiInstance.orderNew(market, side, ordType, opts, callback);
 ```
 
 ### Parameters
@@ -298,9 +294,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **market** | **String**| 마켓 ID (필수)  | 
  **side** | **String**| 주문 종류 (필수) - bid : 매수 - ask : 매도  | 
- **volume** | **String**| 주문량 (지정가, 시장가 매도 시 필수)  | 
- **price** | **String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | 
  **ordType** | **String**| 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도)  | 
+ **volume** | **String**| 주문량 (지정가, 시장가 매도 시 필수)  | [optional] [default to null]
+ **price** | **String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | [optional] [default to null]
  **identifier** | **String**| 조회용 사용자 지정값 (선택)  | [optional] 
 
 ### Return type

@@ -1,14 +1,8 @@
 
-from bravado.requests_client import RequestsClient as rc
-from bravado.client import SwaggerClient as sc
-from upbit.authentication import APIKeyAuthenticator
+from . import models
 
 
-HOST = "https://api.upbit.com"
-SPEC_URI = "https://raw.githubusercontent.com/uJhin/upbit-client/main/mapper/swg_mapper.json"
-
-
-def Upbit(access_key: str = None, secret_key: str = None, **kwargs) -> sc:
+class Upbit:
     """
     Upbit Client
     Please read the official Upbit Client document.
@@ -16,7 +10,7 @@ def Upbit(access_key: str = None, secret_key: str = None, **kwargs) -> sc:
 
     - Base URL: https://api.upbit.com
     - Base Path: /v1
-    - Upbit OPEN API Version: 1.1.6
+    - Upbit OPEN API Version: 1.2.2
     - Author: ujhin
     - Email: ujhin942@gmail.com
     - GitHub: https://github.com/uJhin
@@ -24,29 +18,30 @@ def Upbit(access_key: str = None, secret_key: str = None, **kwargs) -> sc:
     - Official Support Email: open-api@upbit.com
     """
 
-    arg_config = kwargs.get('config')
-    arg_spec_uri = kwargs.get('spec_uri')
-    config = {
-        'also_return_response': False,
-        'validate_responses': False,
-        'use_models': False,
-        'host': HOST
-    } if not arg_config else arg_config
-    spec_uri = SPEC_URI if not arg_spec_uri else arg_spec_uri
+    def __init__(
+        self,
+        access_key: str = None,
+        secret_key: str = None,
+        **kwargs
+    ):
 
-    if access_key and secret_key:
+        self.__client = models.ClientModel(
+            access_key=access_key,
+            secret_key=secret_key,
+            **kwargs
+        ).SWGClient
 
-        request_client = rc()
-        request_client.authenticator = APIKeyAuthenticator(
-            config['host'], access_key, secret_key)
+        self.APIKey   = models.APIKey(self.__client)
+        self.Account  = models.Account(self.__client)
+        self.Candle   = models.Candle(self.__client)
+        self.Deposit  = models.Deposit(self.__client)
+        self.Market   = models.Market(self.__client)
+        self.Order    = models.Order(self.__client)
+        self.Trade    = models.Trade(self.__client)
+        self.Withdraw = models.Withdraw(self.__client)
 
-        client = sc.from_url(
-            spec_url=spec_uri, http_client=request_client, config=config)
+    def __str__(self):
+        return self.__repr__()
 
-    else:
-
-        client = sc.from_url(spec_url=spec_uri, config=config)
-
-    client.__class__.__name__ = 'UpbitClient'
-    return client
-
+    def __repr__(self):
+        return f"UpbitClient({models.HOST})"

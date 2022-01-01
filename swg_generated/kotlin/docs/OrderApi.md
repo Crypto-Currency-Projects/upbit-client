@@ -159,7 +159,7 @@ Name | Type | Description  | Notes
 
 <a name="order.infoAll"></a>
 # **order.infoAll**
-> kotlin.Array&lt;Order&gt; order.infoAll(market, state, states, uuids, identifiers, kind, page, limit, orderBy)
+> kotlin.Array&lt;Order&gt; order.infoAll(market, state, states, uuids, identifiers, page, limit, orderBy)
 
 주문 리스트 조회
 
@@ -177,12 +177,11 @@ val state : kotlin.String = state_example // kotlin.String | 주문 상태   - w
 val states : kotlin.Array<kotlin.String> =  // kotlin.Array<kotlin.String> | 주문 상태의 목록 
 val uuids : kotlin.Array<kotlin.String> =  // kotlin.Array<kotlin.String> | 주문 UUID의 목록 
 val identifiers : kotlin.Array<kotlin.String> =  // kotlin.Array<kotlin.String> | 주문 identifier의 목록 
-val kind : kotlin.String = kind_example // kotlin.String | 주문 유형 - normal : 일반 주문 - watch : 예약 주문 
 val page : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 페이지 수, default: 1 
 val limit : java.math.BigDecimal = 8.14 // java.math.BigDecimal | 요청 개수, default: 100 
 val orderBy : kotlin.String = orderBy_example // kotlin.String | 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default) 
 try {
-    val result : kotlin.Array<Order> = apiInstance.order.infoAll(market, state, states, uuids, identifiers, kind, page, limit, orderBy)
+    val result : kotlin.Array<Order> = apiInstance.order.infoAll(market, state, states, uuids, identifiers, page, limit, orderBy)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling OrderApi#order.infoAll")
@@ -202,7 +201,6 @@ Name | Type | Description  | Notes
  **states** | [**kotlin.Array&lt;kotlin.String&gt;**](kotlin.String.md)| 주문 상태의 목록  | [optional]
  **uuids** | [**kotlin.Array&lt;kotlin.String&gt;**](kotlin.String.md)| 주문 UUID의 목록  | [optional]
  **identifiers** | [**kotlin.Array&lt;kotlin.String&gt;**](kotlin.String.md)| 주문 identifier의 목록  | [optional]
- **kind** | **kotlin.String**| 주문 유형 - normal : 일반 주문 - watch : 예약 주문  | [optional]
  **page** | **java.math.BigDecimal**| 페이지 수, default: 1  | [optional]
  **limit** | **java.math.BigDecimal**| 요청 개수, default: 100  | [optional]
  **orderBy** | **kotlin.String**| 정렬 방식 - asc : 오름차순 - desc : 내림차순 (default)  | [optional]
@@ -222,7 +220,7 @@ Name | Type | Description  | Notes
 
 <a name="order.new"></a>
 # **order.new**
-> NewOrder order.new(market, side, volume, price, ordType, identifier)
+> NewOrder order.new(market, side, ordType, volume, price, identifier)
 
 주문하기
 
@@ -237,12 +235,12 @@ Name | Type | Description  | Notes
 val apiInstance = OrderApi()
 val market : kotlin.String = market_example // kotlin.String | 마켓 ID (필수) 
 val side : kotlin.String = side_example // kotlin.String | 주문 종류 (필수) - bid : 매수 - ask : 매도 
+val ordType : kotlin.String = ordType_example // kotlin.String | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) 
 val volume : kotlin.String = volume_example // kotlin.String | 주문량 (지정가, 시장가 매도 시 필수) 
 val price : kotlin.String = price_example // kotlin.String | 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음) 
-val ordType : kotlin.String = ordType_example // kotlin.String | 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도) 
 val identifier : kotlin.String = identifier_example // kotlin.String | 조회용 사용자 지정값 (선택) 
 try {
-    val result : NewOrder = apiInstance.order.new(market, side, volume, price, ordType, identifier)
+    val result : NewOrder = apiInstance.order.new(market, side, ordType, volume, price, identifier)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling OrderApi#order.new")
@@ -259,9 +257,9 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **market** | **kotlin.String**| 마켓 ID (필수)  |
  **side** | **kotlin.String**| 주문 종류 (필수) - bid : 매수 - ask : 매도  |
- **volume** | **kotlin.String**| 주문량 (지정가, 시장가 매도 시 필수)  |
- **price** | **kotlin.String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  |
  **ordType** | **kotlin.String**| 주문 타입 (필수) - limit : 지정가 주문 - price : 시장가 주문(매수) - market : 시장가 주문(매도)  |
+ **volume** | **kotlin.String**| 주문량 (지정가, 시장가 매도 시 필수)  | [optional] [default to null]
+ **price** | **kotlin.String**| 주문 가격. (지정가, 시장가 매수 시 필수)  ex) KRW-BTC 마켓에서 1BTC당 1,000 KRW로 거래할 경우, 값은 1000 이 된다. ex) KRW-BTC 마켓에서 1BTC당 매도 1호가가 500 KRW 인 경우, 시장가 매수 시 값을 1000으로 세팅하면 2BTC가 매수된다. (수수료가 존재하거나 매도 1호가의 수량에 따라 상이할 수 있음)  | [optional] [default to null]
  **identifier** | **kotlin.String**| 조회용 사용자 지정값 (선택)  | [optional]
 
 ### Return type

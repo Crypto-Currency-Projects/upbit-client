@@ -2,28 +2,42 @@
 import jwt
 import hashlib
 import uuid
+
 from urllib.parse import urlencode
 
 from bravado.requests_client import Authenticator
 
 
+MAPPER           = 'swg_mapper.json'
+QUERY_PARAMS     = ['uuids', 'txids', 'identifiers', 'states']
+
+
 class APIKeyAuthenticator(Authenticator):
 
-    def __init__(self, host, access_key, secret_key):
+    def __init__(
+        self,
+        host: str,
+        access_key: str,
+        secret_key: str
+    ):
+
         super(APIKeyAuthenticator, self).__init__(host)
+
         self.host = host
         self.access_key = access_key
         self.secret_key = secret_key
 
     def matches(self, url):
-        return 'swg_mapper.json' not in url
+        return MAPPER not in url
 
     def apply(self, request):
-        request.headers['User-Agent'] = "ujhin's Upbit SDKs"
+        payload = self.generate_payload(request)
+
+        request.headers['User-Agent'     ] = "ujhin's Upbit SDKs"
         request.headers['Accept-Encoding'] = 'gzip, deflate'
-        request.headers['Accept'] = '*/*'
-        request.headers['Connection'] = 'keep-alive'
-        request.headers['Authorization'] = self.generate_payload(request)
+        request.headers['Accept'         ] = '*/*'
+        request.headers['Connection'     ] = 'keep-alive'
+        request.headers['Authorization'  ] = payload
         return request
 
     def generate_payload(self, request):
@@ -39,11 +53,11 @@ class APIKeyAuthenticator(Authenticator):
         if params:
             query = self.generate_query(params)
 
-            h = hashlib.sha512()
-            h.update(query.encode())
-            query_hash = h.hexdigest()
+            sha512 = hashlib.sha512()
+            sha512.update(query.encode())
+            query_hash = sha512.hexdigest()
 
-            payload['query_hash'] = query_hash
+            payload['query_hash'    ] = query_hash
             payload['query_hash_alg'] = 'SHA512'
 
         jwt_token = jwt.encode(payload, self.secret_key)
@@ -51,19 +65,18 @@ class APIKeyAuthenticator(Authenticator):
         return authorize_token
 
     def generate_query(self, params):
-        quotation_params = ['uuids', 'txids', 'identifiers']
         query = urlencode({
             k: v
             for k, v in params.items()
-            if k not in quotation_params
+            if k not in QUERY_PARAMS
         })
-        for param in quotation_params:
-            if params.get(param):
-                _param = params.pop(param)
-                params[f"{param}[]"] = _param
+        for query_param in QUERY_PARAMS:
+            if params.get(query_param):
+                param = params.pop(query_param)
+                params[f"{query_param}[]"] = param
                 query_params = '&'.join([
-                    f"{param}[]={_p}"
-                    for _p in param
+                    f"{query_param}[]={q}"
+                    for q in param
                 ])
                 query = f"{query}&{query_params}" if query else query_params
         return query

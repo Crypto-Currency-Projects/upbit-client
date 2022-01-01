@@ -1,21 +1,19 @@
+"""
+[Upbit Client]
 
-import logging
+Please read the official Upbit Client document.
+Documents: https://ujhin.github.io/upbit-client-docs/
 
-from upbit import pkg_version
+- Upbit OPEN API Version: 1.2.2
+- Author: ujhin
+- Email: ujhin942@gmail.com
+- GitHub: https://github.com/uJhin
+- Official OPEN API Documents: https://docs.upbit.com
+- Official Support Email: open-api@upbit.com
+"""
 
-__all__ = ['client']
-__module_name__ = 'upbit-client'
-
-__version__ = '1.1.6.12'
-__released_version__ = pkg_version.get_versions(__module_name__)
-__latest_version__ = __released_version__[0]
+from . import pkginfo
 
 
-if __latest_version__ != __version__:
-    logging.basicConfig(format="[%(levelname)s] %(message)s")
-    logging.warning(
-        f"{__module_name__} is currently a newer version: "
-        f"{__latest_version__}\n"
-        f"Please update to the latest version using the pip command: "
-        f"`pip install --upgrade {__module_name__}`"
-    )
+__all__     = ['client', 'websocket']
+__version__ = pkginfo.CURRENT_VERSION
