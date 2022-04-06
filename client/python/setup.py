@@ -16,7 +16,7 @@ setup(
     install_requires = [
         'bravado>=11.0.2',
         'PyJWT>=2.0',
-        'websockets>=8.1'
+        'websockets>=10.1'
     ],
     extras_require  = {
         'fido': [
@@ -26,7 +26,8 @@ setup(
     python_requires = '>=3.8',
     classifiers     = [
         'Programming Language :: Python :: 3.8',
-        'Programming Language :: Python :: 3.9'
+        'Programming Language :: Python :: 3.9',
+        'Programming Language :: Python :: 3.10',
     ],
     keywords        = [
         'Upbit',

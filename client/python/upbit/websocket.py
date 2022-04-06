@@ -3,13 +3,7 @@ import websockets
 import uuid
 import json
 
-from typing import Union, List
-
-
-WEBSOCKET_URI = "wss://api.upbit.com/websocket/v1"
-
-FIELD_TYPES   = ['ticker', 'trade', 'orderbook']
-FIELD_FORMATS = ['SIMPLE', 'DEFAULT']
+import typing as t
 
 
 class UpbitWebSocket:
@@ -26,19 +20,25 @@ class UpbitWebSocket:
     - Official Support Email: open-api@upbit.com
     """
 
+    WEBSOCKET_URI = "wss://api.upbit.com/websocket/v1"
+    FIELD_TYPES   = ( "ticker", "trade", "orderbook" )
+    FIELD_FORMATS = ( "SIMPLE", "DEFAULT" )
+
+
     def __init__(
         self,
-        uri: Union[str] = None,
-        ping_interval: Union[int, float] = None,
-        ping_timeout: Union[int, float] = None
+        uri          : str                 = None,
+        ping_interval: t.Union[int, float] = None,
+        ping_timeout : t.Union[int, float] = None
     ):
 
-        self.__uri = uri if uri else WEBSOCKET_URI
+        self.__uri = uri if uri else UpbitWebSocket.WEBSOCKET_URI
         self.__conn = None
         self.connect(
             ping_interval=ping_interval,
             ping_timeout=ping_timeout
         )
+
 
     @property
     def URI(self):
@@ -56,10 +56,11 @@ class UpbitWebSocket:
     def Connection(self, conn):
         self.__conn = conn
 
+
     def connect(
         self,
-        ping_interval: Union[int, float] = None,
-        ping_timeout: Union[int, float] = None
+        ping_interval: t.Union[int, float] = None,
+        ping_timeout : t.Union[int, float] = None
     ):
         """
         :param ping_interval: ping 간격 제한
@@ -75,20 +76,23 @@ class UpbitWebSocket:
             ping_timeout=ping_timeout
         )
 
-    async def ping(self):
+
+    async def ping(self, decode: str = "utf8"):
         """
         Client to Server PING
         """
         async with self as conn:
-            await conn.send('PING')
+            await conn.send("PING")
             recv = await conn.recv()
-            return json.loads(recv)
+            pong = recv.decode(decode)
+            return json.loads(pong)
+
 
     @staticmethod
     def generate_orderbook_codes(
-        currencies: Union[List[str]],
-        counts: Union[List[int]] = None
-    ) -> List[str]:
+        currencies: t.List[str],
+        counts    : t.List[int] = None
+    ) -> t.List[str]:
         """
         :param currencies: 수신할 `orderbook` field 마켓 코드 리스트
         :type currencies: list[str, ...]
@@ -104,13 +108,14 @@ class UpbitWebSocket:
         ] if counts else currencies
         return codes
 
+
     @staticmethod
     def generate_type_field(
-        type: str,
-        codes: Union[List[str]],
+        type          : str,
+        codes         : t.List[str],
         isOnlySnapshot: bool = None,
         isOnlyRealtime: bool = None,
-    ) -> dict:
+    ) -> t.Dict[str, t.Any]:
         """
         :param type: 수신할 시세 타입 (현재가: `ticker`, 체결: `trade`, 호가: `orderbook`)
         :type type: str
@@ -127,8 +132,9 @@ class UpbitWebSocket:
 
         field = {}
 
-        if type in FIELD_TYPES:
-            field["type"] = type
+        t = type.lower()
+        if t in UpbitWebSocket.FIELD_TYPES:
+            field["type"] = t
         else:
             raise ValueError("'type' is not available")
 
@@ -142,11 +148,12 @@ class UpbitWebSocket:
 
         return field
 
+
     @staticmethod
     def generate_payload(
-        type_fields: Union[List[dict]],
-        ticket: str = None,
-        format: str = 'DEFAULT'
+        type_fields: t.List[t.Dict[str, t.Any]],
+        ticket     : str = None,
+        format     : str = "DEFAULT"
     ) -> str:
         """
         :param type_fields: Type Fields
@@ -162,15 +169,16 @@ class UpbitWebSocket:
         payload = []
 
         ticket = ticket if ticket else str(uuid.uuid4())
-        payload.append({"ticket": ticket})
+        payload.append( { "ticket": ticket } )
 
         payload.extend(type_fields)
 
         fmt = format.upper()
-        fmt = fmt if fmt in FIELD_FORMATS else 'DEFAULT'
-        payload.append({"format": fmt})
+        fmt = fmt if fmt in UpbitWebSocket.FIELD_FORMATS else "DEFAULT"
+        payload.append( { "format": fmt } )
 
         return json.dumps(payload)
+
 
     async def __aenter__(self):
         return await self.Connection.__aenter__()

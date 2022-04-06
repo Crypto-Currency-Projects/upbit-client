@@ -24,8 +24,12 @@
   <br/><br/>
   <div align="center">
     <h2>Support</h2>
-    <img src="logo/upbit_logo.png" width="250" height="100"/>
-    <img src="logo/swagger_logo.png" width="250" height="100">
+    <a href="https://upbit.com/">
+      <img src="logo/upbit_logo.png" width="250" height="100"/>
+    </a>
+    <a href="https://swagger.io/">
+      <img src="logo/swagger_logo.png" width="250" height="100">
+    </a>
     <br/><br/>
     <div>
       <!-- <img src="https://img.shields.io/github/stars/uJhin/upbit-client?style=social"/> -->
@@ -141,8 +145,8 @@ from upbit.websocket import UpbitWebSocket
 # Definition async function
 async def ticker(sock, payload):
     async with sock as conn:
+        await conn.send(payload)
         while True:
-            await conn.send(payload)
             recv = await conn.recv()
             data = recv.decode('utf8')
             result = json.loads(data)
@@ -165,5 +169,8 @@ event_loop.run_until_complete( ticker(sock, payload) )
 ```
 
 ### Donation
-- BTC: 3NVw2seiTQddGQwc1apqudKxuTqebpyL3s
-- ETH: 0x60dd373f59862d9df776596889b997e24bee42eb
+<div align="left">
+  <img alt="uJhin's BTC" src="https://img.shields.io/badge/BTC-3NVw2seiTQddGQwc1apqudKxuTqebpyL3s-blue?style=flat-square&logo=bitcoin">
+  <br/>
+  <img alt="uJhin's ETH" src="https://img.shields.io/badge/ETH-0x60dd373f59862d9df776596889b997e24bee42eb-blue?style=flat-square&logo=ethereum">
+</div>
